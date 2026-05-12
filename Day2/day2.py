@@ -1,6 +1,3 @@
-# day2.py  —  uv add groq "pydantic[email]"
-# Set env var: export GROQ_API_KEY=your_key_here
-
 import asyncio, time, functools, random, os
 from groq import AsyncGroq
 from pydantic import BaseModel, EmailStr, ValidationError
