@@ -10,6 +10,10 @@ load_dotenv()
 
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+
+# WITHOUT LANGCHAIN
 
 #Load PDF and split into chunks
 doc=PyMuPDFLoader("../Day10_RAG/202351040_RESUME_SID.pdf").load()
@@ -44,7 +48,7 @@ Question: {question}
     return llm.invoke(prompt).content
 
 question="Choose the best project which could get him no rejection,state reason as well."
-print(rag_answer(question))
+#print(rag_answer(question))
 
 '''
 Full RAG pipeline-->
@@ -54,3 +58,30 @@ Full RAG pipeline-->
 4. Store
 5. Retrieve and Generate
 '''
+
+# WITH LANGCHAIN
+def format_docs(docs):
+    return "\n\n".join([d.page_content for d in docs])
+
+prompt = ChatPromptTemplate.from_template("""
+Answer the question using ONLY the context below.
+If the context doesn't contain the answer, say "I don't know."
+Cite the relevant excerpt.
+
+<context>
+{context}
+</context>
+
+Question: {question}
+""")
+
+chain=(
+    {
+        "context": retriever|format_docs,
+        "question":RunnablePassthrough()
+    }
+    |prompt
+    |llm
+    |StrOutputParser()
+)
+print(chain.invoke(question))
