@@ -47,7 +47,7 @@ Question: {question}
 """
     return llm.invoke(prompt).content
 
-question="Choose the best project which could get him no rejection,state reason as well."
+question="Name all the projects the candidate has worked on."
 #print(rag_answer(question))
 
 '''
