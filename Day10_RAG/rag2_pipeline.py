@@ -2,7 +2,7 @@
 # from sentence_transformers import SentenceTransformer
 # from groq import Groq
 
-# # ---------- INDEXING PHASE (done once) ----------
+# ----------INDEXING PHASE (done once)
 # documents = [
 #     "To reset your password, go to Settings > Security and click 'Reset Password'.",
 #     "Our office is open Monday to Friday, 9am to 6pm, and closed on public holidays.",
@@ -13,14 +13,14 @@
 
 # chunks = documents
 
-# # Load embedding model
+#--------- Load embedding model
 # embedder = SentenceTransformer("all-MiniLM-L6-v2")
 
-# # Create embeddings for all chunks
+# Create embeddings for all chunks
 # chunk_vectors = np.array(
 #     embedder.encode(chunks, normalize_embeddings=True)
 # )
-# # ---------- HELPER FUNCTIONS ----------
+# ------HELPER FUNCTIONS
 # def cosine_similarity(a, b):
 #     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
@@ -41,7 +41,7 @@
 #     # Return top-k chunks
 #     return [(chunk, score) for score, chunk in ranked[:k]]
 
-# # ---------- QUERY PHASE (done per question) ----------
+# -------- QUERY PHASE (done per question)
 # client = Groq()
 
 # def answer(query, k=3):
